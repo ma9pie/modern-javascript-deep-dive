@@ -1,7 +1,8 @@
+import classnames from 'classnames';
 import React from 'react';
 import tw, { styled } from 'twin.macro';
 
-import useTailwindColor from '@/hooks/useTailwindColor';
+import useTailwind from '@/hooks/useTailwind';
 
 interface Props {
   [key: string]: any;
@@ -13,7 +14,14 @@ interface Props {
   md?: boolean;
   lg?: boolean;
   xl?: boolean;
-  xxl?: boolean;
+  xl2?: boolean;
+  xl3?: boolean;
+  xl4?: boolean;
+  xl5?: boolean;
+  xl6?: boolean;
+  xl7?: boolean;
+  xl8?: boolean;
+  xl9?: boolean;
 
   medium?: boolean;
   semibold?: boolean;
@@ -41,12 +49,6 @@ const Text = ({
   className,
 
   size,
-  xs,
-  sm,
-  md,
-  lg,
-  xl,
-  xxl,
 
   medium,
   semibold,
@@ -70,18 +72,14 @@ const Text = ({
   children,
   ...props
 }: Props) => {
-  const color = useTailwindColor(props);
+  const { textClass, color } = useTailwind(props);
+
+  console.log(textClass, props);
 
   return (
     <P
-      className={className}
+      className={classnames(className, textClass)}
       size={size}
-      xs={xs}
-      sm={sm}
-      md={md}
-      lg={lg}
-      xl={xl}
-      xxl={xxl}
       medium={medium}
       semibold={semibold}
       bold={bold}
@@ -107,12 +105,6 @@ export default Text;
 
 const P = styled.p<Props>`
   font-size: ${(props) => `${props.size}px`};
-  ${(props) => props.xs && tw`text-xs`};
-  ${(props) => props.sm && tw`text-sm`};
-  ${(props) => props.md && tw`text-base`};
-  ${(props) => props.lg && tw`text-lg`};
-  ${(props) => props.xl && tw`text-xl`};
-  ${(props) => props.xxl && tw`text-2xl`};
 
   ${(props) => props.medium && tw`font-medium`};
   ${(props) => props.semibold && tw`font-semibold`};

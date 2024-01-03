@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import tw, { styled } from 'twin.macro';
 
-import useTailwindColor from '@/hooks/useTailwindColor';
+import useTailwind from '@/hooks/useTailwind';
 
 interface Props {
   [key: string]: any;
@@ -12,10 +12,9 @@ interface Props {
 
 const Divider = ({ className, dotted, my = 0, ...props }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
-  const color = useTailwindColor({
-    ...props,
-    defaultColor: 'black',
-  });
+
+  const { color } = useTailwind(props);
+
   const [width, setWidth] = useState(0);
   const margin = useMemo(() => `${my}px 0px`, [my]);
 
