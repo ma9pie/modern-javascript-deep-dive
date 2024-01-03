@@ -1,8 +1,10 @@
 import React from 'react';
 import tw, { styled } from 'twin.macro';
 
+import Layout from '@/components/layouts/Layout';
+
 const Home = () => {
-  return <Wrapper>Home</Wrapper>;
+  return <Layout>Home</Layout>;
 };
 
 export default Home;
