@@ -1,4 +1,3 @@
-import classnames from 'classnames';
 import React from 'react';
 import tw, { styled } from 'twin.macro';
 
@@ -49,6 +48,19 @@ const Text = ({
   className,
 
   size,
+  xs,
+  sm,
+  md,
+  lg,
+  xl,
+  xl2,
+  xl3,
+  xl4,
+  xl5,
+  xl6,
+  xl7,
+  xl8,
+  xl9,
 
   medium,
   semibold,
@@ -72,14 +84,25 @@ const Text = ({
   children,
   ...props
 }: Props) => {
-  const { textClass, color } = useTailwind(props);
-
-  console.log(textClass, props);
+  const { color } = useTailwind(props);
 
   return (
     <P
-      className={classnames(className, textClass)}
+      className={className}
       size={size}
+      xs={xs}
+      sm={sm}
+      md={md}
+      lg={lg}
+      xl={xl}
+      xl2={xl2}
+      xl3={xl3}
+      xl4={xl4}
+      xl5={xl5}
+      xl6={xl6}
+      xl7={xl7}
+      xl8={xl8}
+      xl9={xl9}
       medium={medium}
       semibold={semibold}
       bold={bold}
@@ -103,8 +126,23 @@ const Text = ({
 
 export default Text;
 
+type Props1 = Record<string, any>;
+
 const P = styled.p<Props>`
   font-size: ${(props) => `${props.size}px`};
+  ${(props) => props.xs && tw`text-xs`};
+  ${(props) => props.sm && tw`text-sm`};
+  ${(props) => props.md && tw`text-base`};
+  ${(props) => props.lg && tw`text-lg`};
+  ${(props) => props.xl && tw`text-xl`};
+  ${(props) => props.xl2 && tw`text-2xl`};
+  ${(props) => props.xl3 && tw`text-3xl`};
+  ${(props) => props.xl4 && tw`text-4xl`};
+  ${(props) => props.xl5 && tw`text-5xl`};
+  ${(props) => props.xl6 && tw`text-6xl`};
+  ${(props) => props.xl7 && tw`text-7xl`};
+  ${(props) => props.xl8 && tw`text-8xl`};
+  ${(props) => props.xl9 && tw`text-9xl`};
 
   ${(props) => props.medium && tw`font-medium`};
   ${(props) => props.semibold && tw`font-semibold`};
