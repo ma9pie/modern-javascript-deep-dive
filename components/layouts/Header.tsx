@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 import tw, { styled } from 'twin.macro';
 
@@ -7,17 +8,19 @@ import Text from '@/components/common/Text';
 const Header = () => {
   return (
     <Wrapper>
-      <Flex items="end" gap={8}>
-        <Text xl2 bold>
-          모던
-        </Text>
-        <Text xl2 bold>
-          자바스크립트
-        </Text>
-        <Text xl semibold>
-          Deep Dive
-        </Text>
-      </Flex>
+      <Link href="/" passHref>
+        <Flex items="end" gap={8}>
+          <Text xl2 bold>
+            모던
+          </Text>
+          <Text xl2 bold>
+            자바스크립트
+          </Text>
+          <Text xl semibold>
+            Deep Dive
+          </Text>
+        </Flex>
+      </Link>
     </Wrapper>
   );
 };
