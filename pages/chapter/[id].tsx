@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import tw, { styled } from 'twin.macro';
 
+import Chapter01 from '@/components/chapter/Chapter01';
 import Flex from '@/components/common/Flex';
 import NotFound from '@/components/common/NotFound';
 import Text from '@/components/common/Text';
@@ -24,12 +25,9 @@ const Chapter = () => {
       setChapter({
         id: -1,
         title: '',
-        component: () => <></>,
+        done: false,
       });
     }
-
-    if (!_chapter) return;
-    setChapter(_chapter);
   }, [router.isReady]);
 
   return (
@@ -38,13 +36,14 @@ const Chapter = () => {
         if (!chapter) {
           return null;
         }
+        const { id, title } = chapter;
         if (chapter.id === -1) {
           return <NotFound></NotFound>;
         }
         return (
           <Flex className="h-full" col flex={1} gap={16}>
-            <Text xl3>{`[제 ${chapter.id}장] ${chapter.title}`}</Text>
-            <Content>{chapter.component && chapter.component()}</Content>
+            <Text xl3>{`[제 ${id}장] ${title}`}</Text>
+            <Content>{id === 1 && <Chapter01></Chapter01>}</Content>
           </Flex>
         );
       })()}

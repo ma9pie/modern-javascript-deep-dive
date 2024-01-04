@@ -10,8 +10,8 @@ const Home = () => {
   return (
     <Layout>
       <Container>
-        {CHAPTER.map(({ id, title, component }) =>
-          component ? (
+        {CHAPTER.map(({ id, title, done }) =>
+          done ? (
             <Link
               className="w-fit text-lg text-blue-400"
               key={id}
