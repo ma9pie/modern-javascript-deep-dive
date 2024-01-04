@@ -5,3 +5,4 @@ export { default as NotFound } from './NotFound';
 export { default as ResponsiveView } from './ResponsiveView';
 export { default as Spacing } from './Spacing';
 export { default as Text } from './Text';
+export { default as CodeBlock } from './CodeBlock';
