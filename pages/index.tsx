@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 import tw, { styled } from 'twin.macro';
 
-import Flex from '@/components/common/Flex';
+import { Flex } from '@/components/common';
 import Layout from '@/components/layouts/Layout';
 import { CHAPTER } from '@/constants';
 

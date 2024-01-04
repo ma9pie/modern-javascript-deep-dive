@@ -1,9 +1,7 @@
 import React from 'react';
 import tw, { styled } from 'twin.macro';
 
-import List from '@/components/common/List';
-import Spacing from '@/components/common/Spacing';
-import Text from '@/components/common/Text';
+import { List, Spacing, Text } from '@/components/common';
 
 const Chapter = () => {
   return (

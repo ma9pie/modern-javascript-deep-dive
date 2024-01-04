@@ -1,7 +1,7 @@
 import React from 'react';
 import tw, { styled } from 'twin.macro';
 
-import Text from '@/components/common/Text';
+import { Text } from '@/components/common';
 
 const NotFound = () => {
   return (

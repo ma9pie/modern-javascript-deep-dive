@@ -1,6 +1,6 @@
 import React from 'react';
 
-import NotFound from '@/components/common/NotFound';
+import { NotFound } from '@/components/common';
 import Layout from '@/components/layouts/Layout';
 
 const NotFoundPage = () => {

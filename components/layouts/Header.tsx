@@ -2,8 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 import tw, { styled } from 'twin.macro';
 
-import Flex from '@/components/common/Flex';
-import Text from '@/components/common/Text';
+import { Flex, Text } from '@/components/common';
 
 const Header = () => {
   return (

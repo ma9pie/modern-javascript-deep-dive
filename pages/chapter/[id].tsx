@@ -2,10 +2,8 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import tw, { styled } from 'twin.macro';
 
-import Chapter01 from '@/components/chapter/Chapter01';
-import Flex from '@/components/common/Flex';
-import NotFound from '@/components/common/NotFound';
-import Text from '@/components/common/Text';
+import { Chapter01 } from '@/components/chapter';
+import { Flex, NotFound, Text } from '@/components/common';
 import Layout from '@/components/layouts/Layout';
 import { CHAPTER } from '@/constants';
 import { ChapterItem } from '@/types';
