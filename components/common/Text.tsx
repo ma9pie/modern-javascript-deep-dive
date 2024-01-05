@@ -124,9 +124,33 @@ const Text = ({
   );
 };
 
-export default Text;
+const Title1 = (props: Props) => {
+  return (
+    <Text xl3 semibold>
+      {props.children}
+    </Text>
+  );
+};
+const Title2 = (props: Props) => {
+  return (
+    <Text xl2 semibold>
+      {props.children}
+    </Text>
+  );
+};
+const Title3 = (props: Props) => {
+  return (
+    <Text xl1 semibold>
+      {props.children}
+    </Text>
+  );
+};
 
-type Props1 = Record<string, any>;
+Text.Title1 = React.memo(Title1);
+Text.Title2 = React.memo(Title2);
+Text.Title3 = React.memo(Title3);
+
+export default Text;
 
 const P = styled.p<Props>`
   font-size: ${(props) => `${props.size}px`};
