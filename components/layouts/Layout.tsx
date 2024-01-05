@@ -22,5 +22,5 @@ const Container = styled.div`
   ${tw``};
 `;
 const Content = styled.div`
-  ${tw`min-h-[calc(100vh-80px)] p-6`};
+  ${tw`min-h-[calc(100vh-80px)] px-6 pt-6 pb-40`};
 `;
