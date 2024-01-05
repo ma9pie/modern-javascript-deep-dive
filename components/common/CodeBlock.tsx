@@ -4,13 +4,14 @@ import { vs2015 } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import tw, { styled } from 'twin.macro';
 
 interface Props {
+  className?: string;
   code: string;
 }
 
-const CodeBlock = ({ code }: Props) => {
+const CodeBlock = ({ className, code }: Props) => {
   if (!code) return null;
   return (
-    <Wrapper>
+    <Wrapper className={className}>
       <SyntaxHighlighter language="javascript" style={vs2015}>
         {code}
       </SyntaxHighlighter>
@@ -21,5 +22,5 @@ const CodeBlock = ({ code }: Props) => {
 export default CodeBlock;
 
 const Wrapper = styled.div`
-  ${tw`my-4 rounded-lg overflow-hidden`};
+  ${tw`my-2 rounded-lg overflow-hidden`};
 `;
