@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import React, { ReactNode } from 'react';
 import tw, { styled } from 'twin.macro';
 
@@ -10,6 +11,13 @@ interface Props {
 const Layout = ({ children }: Props) => {
   return (
     <Container>
+      <Head>
+        <title>Modern Javascript Deep Dive</title>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+        ></meta>
+      </Head>
       <Header></Header>
       <Content>{children}</Content>
     </Container>
