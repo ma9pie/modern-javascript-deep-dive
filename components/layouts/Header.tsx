@@ -1,24 +1,50 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import tw, { styled } from 'twin.macro';
 
-import { Flex, Text } from '@/components/common';
+import { Flex, ResponsiveView, Text } from '@/components/common';
 
 const Header = () => {
   return (
     <Wrapper>
       <Link href="/" passHref>
-        <Flex items="end" gap={8}>
-          <Text xl2 bold>
-            모던
-          </Text>
-          <Text xl2 bold>
-            자바스크립트
-          </Text>
-          <Text xl semibold>
-            Deep Dive
-          </Text>
-        </Flex>
+        <ResponsiveView
+          mobile={
+            <Flex items="center" gap={8}>
+              <Image
+                src="/images/logo/logo.svg"
+                width={24}
+                height={24}
+                alt="logo"
+              ></Image>
+              <Text lg bold>
+                모던 자바스크립트 Deep Dive
+              </Text>
+            </Flex>
+          }
+          desktop={
+            <Flex items="center" gap={8}>
+              <Image
+                src="/images/logo/logo.svg"
+                width={32}
+                height={32}
+                alt="logo"
+              ></Image>
+              <Flex items="end" gap={8}>
+                <Text xl2 bold>
+                  모던
+                </Text>
+                <Text xl2 bold>
+                  자바스크립트
+                </Text>
+                <Text xl semibold>
+                  Deep Dive
+                </Text>
+              </Flex>
+            </Flex>
+          }
+        ></ResponsiveView>
       </Link>
     </Wrapper>
   );
