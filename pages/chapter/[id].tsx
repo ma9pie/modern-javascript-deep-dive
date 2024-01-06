@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import tw, { styled } from 'twin.macro';
 
-import { Chapter01 } from '@/components/chapter';
+import { Chapter01, Chapter24 } from '@/components/chapter';
 import { Flex, NotFound, Text } from '@/components/common';
 import Layout from '@/components/layouts/Layout';
 import { CHAPTER } from '@/constants';
@@ -40,8 +40,11 @@ const Chapter = () => {
         }
         return (
           <Flex className="h-full" col flex={1} gap={16}>
-            <Text xl3>{`[제 ${id}장] ${title}`}</Text>
-            <Content>{id === 1 && <Chapter01></Chapter01>}</Content>
+            <Text.Title1>{`[제 ${id}장] ${title}`}</Text.Title1>
+            <Content>
+              {id === 1 && <Chapter01></Chapter01>}
+              {id === 24 && <Chapter24></Chapter24>}
+            </Content>
           </Flex>
         );
       })()}
