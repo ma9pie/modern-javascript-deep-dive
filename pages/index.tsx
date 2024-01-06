@@ -23,12 +23,12 @@ const Home = () => {
               </Flex>
             </Link>
           ) : (
-            <div className="w-fit text-lg text-neutral-600" key={id}>
+            <InActiveBox key={id}>
               <Flex gap={12}>
                 <Text nowrap>{`제 ${id}장 `}</Text>
                 <Text>{title}</Text>
               </Flex>
-            </div>
+            </InActiveBox>
           )
         )}
       </Container>
@@ -41,6 +41,6 @@ export default Home;
 const Container = styled.div`
   ${tw`flex flex-col gap-4`};
 `;
-const LinkText = styled.div`
-  ${tw`text-lg`};
+const InActiveBox = styled.div`
+  ${tw`w-fit text-lg text-neutral-600`};
 `;
