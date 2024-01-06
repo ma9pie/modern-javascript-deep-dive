@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 import tw, { styled } from 'twin.macro';
 
-import { Flex } from '@/components/common';
+import { Flex, Text } from '@/components/common';
 import Layout from '@/components/layouts/Layout';
 import { CHAPTER } from '@/constants';
 
@@ -18,15 +18,15 @@ const Home = () => {
               href={`/chapter/${id}`}
             >
               <Flex gap={12}>
-                <p>{`제 ${id}장`}</p>
-                <p>{title}</p>
+                <Text nowrap>{`제 ${id}장`}</Text>
+                <Text>{title}</Text>
               </Flex>
             </Link>
           ) : (
             <div className="w-fit text-lg text-neutral-600" key={id}>
               <Flex gap={12}>
-                <p>{`제 ${id}장 `}</p>
-                <p>{title}</p>
+                <Text nowrap>{`제 ${id}장 `}</Text>
+                <Text>{title}</Text>
               </Flex>
             </div>
           )
