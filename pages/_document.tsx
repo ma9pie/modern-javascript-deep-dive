@@ -10,6 +10,8 @@ export default function Document() {
   return (
     <Html lang="ko">
       <Head>
+        <link rel="manifest" href="/manifest.json" />
+
         {/* 메타 태그 설정 */}
         <meta charSet="utf-8" />
         <meta name="description" content={DESCRIPTION} />
@@ -106,7 +108,12 @@ export default function Document() {
           href="/icons/favicon-128.png"
           sizes="128x128"
         />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content={TITLE} />
         <meta name="application-name" content={TITLE} />
+        <meta name="theme-color" content="#222222" />
         <meta name="msapplication-TileColor" content="#222222" />
         <meta name="msapplication-TileImage" content="mstile-144x144.png" />
         <meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
