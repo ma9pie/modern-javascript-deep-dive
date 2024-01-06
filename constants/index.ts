@@ -1,5 +1,10 @@
 import { ChapterItem } from '@/types';
 
+export const TITLE = 'Modern Javascript Deep Dive';
+export const DESCRIPTION = 'javscript study';
+export const URL = 'https://modern-javascript-deep-dive.vercel.app/';
+export const IMAGE_URL = '/images/logo/logo.svg';
+
 export const CHAPTER: ChapterItem[] = [
   { id: 1, title: '프로그래밍', done: true },
   { id: 2, title: '자바스크립트란?', done: false },
