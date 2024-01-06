@@ -32,7 +32,7 @@ export const CHAPTER: ChapterItem[] = [
   { id: 21, title: '빌트인 객체', done: false },
   { id: 22, title: 'this', done: false },
   { id: 23, title: '실행 컨텍스트', done: false },
-  { id: 24, title: '클로저', done: false },
+  { id: 24, title: '클로저', done: true },
   { id: 25, title: '클래스', done: false },
   { id: 26, title: 'ES6 함수의 추가 기능', done: false },
   { id: 27, title: '배열', done: false },
