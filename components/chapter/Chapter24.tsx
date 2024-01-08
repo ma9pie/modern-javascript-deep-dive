@@ -21,6 +21,8 @@ const Chapter = () => {
     ex_24_07();
     ex_24_08();
     ex_24_09();
+    ex_24_10();
+    ex_24_11();
   }, []);
 
   const ex_24_01 = () => {
@@ -150,9 +152,38 @@ const Chapter = () => {
     const increase = () => {
       return ++num;
     };
-    console.log(increase());
-    console.log(increase());
-    console.log(increase());
+    console.log(increase()); // 1
+    console.log(increase()); // 2
+    console.log(increase()); // 3
+  };
+
+  const ex_24_10 = () => {
+    // 카운트 상태 변경 함수
+    const increase = () => {
+      // 카운트 상태 변수
+      let num = 0;
+      // 카운트 상태를 1만큼 증가시킨다.
+      return ++num;
+    };
+    console.log(increase()); // 1
+    console.log(increase()); // 1
+    console.log(increase()); // 1
+  };
+
+  const ex_24_11 = () => {
+    // 카운트 상태 변경 함수
+    const increase = (() => {
+      // 카운트 상태 변수
+      let num = 0;
+      // 클로저
+      return () => {
+        // 카운트 상태를 1만큼 증가시킨다.
+        return ++num;
+      };
+    })();
+    console.log(increase()); // 1
+    console.log(increase()); // 2
+    console.log(increase()); // 3
   };
 
   return (
@@ -281,6 +312,40 @@ const Chapter = () => {
       <Text>
         클로저는 상태를 안전하게 변경하고 유지하기 위해서 사용한다. 즉, 상태를
         안전하게 은닉하고 특정 함수에게만 상태 변경을 허용하기 위해서 사용한다.
+      </Text>
+
+      <br />
+
+      <Text>[예제 24-09]</Text>
+      <CodeBlock code={String(ex_24_09)}></CodeBlock>
+      <Text>
+        위의 코드의 경우 num이 전역 변수로 선언되었기 때문에 다른 부분에서 해당
+        변수에 접근해 값이 변경될 여지가 있다.
+      </Text>
+
+      <br />
+
+      <Text>[예제 24-10]</Text>
+      <CodeBlock code={String(ex_24_10)}></CodeBlock>
+      <Text>
+        카운트 상태를 안전하게 변경하고 유지하기 위해 전역 변수 num을 increase
+        함수의 지역 변수로 선언하였지만, increase 함수가 호출될 때마다 지역 변수
+        num값은 0으로 초기화된다.
+      </Text>
+
+      <br />
+
+      <Text>[예제 24-11]</Text>
+      <CodeBlock code={String(ex_24_11)}></CodeBlock>
+      <Text>
+        위 코드 실행 시 즉시 실행 함수가 호출되고 거기서 반환된 함수가 increase
+        변수에 할당된다. increase 변수에 할당된 함수는 자신이 정의된 위치에 의해
+        결정된 상위 스코프인 즉시 실행 함수의 렉시컬 환경을 기억하는 클로저이다.
+      </Text>
+      <Text>
+        이처럼 클로저는 상태가 의도치 않게 변경되지 않도록 안전하게 은닉하고
+        특정 함수에게만 상태 변경을 허용하여 상태를 안전하게 변경하고 유지하기
+        위해 사용된다.
       </Text>
     </Wrapper>
   );
