@@ -31,5 +31,5 @@ const Container = styled.div`
   ${tw``};
 `;
 const Content = styled.div`
-  ${tw`min-h-[calc(100vh-80px)] px-6 pt-6 pb-40`};
+  ${tw`max-w-7xl min-h-[calc(100vh-80px)] px-6 pt-6 pb-40 mx-auto`};
 `;
