@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import tw, { styled } from 'twin.macro';
 
 import {
@@ -11,21 +11,7 @@ import {
 } from '@/components/common';
 
 const Chapter = () => {
-  useEffect(() => {
-    ex_24_01();
-    ex_24_02();
-    ex_24_03();
-    ex_24_04();
-    ex_24_05();
-    ex_24_06();
-    ex_24_07();
-    ex_24_08();
-    ex_24_09();
-    ex_24_10();
-    ex_24_11();
-  }, []);
-
-  const ex_24_01 = () => {
+  const 예제_24_01 = () => {
     const x = 1;
     const outerFn = () => {
       const x = 10;
@@ -37,7 +23,7 @@ const Chapter = () => {
     outerFn();
   };
 
-  const ex_24_02 = () => {
+  const 예제_24_02 = () => {
     const x = 1;
     const outerFn = () => {
       const x = 10;
@@ -49,7 +35,7 @@ const Chapter = () => {
     outerFn();
   };
 
-  const ex_24_03 = () => {
+  const 예제_24_03 = () => {
     const x = 1;
     const foo = () => {
       const x = 10;
@@ -62,7 +48,7 @@ const Chapter = () => {
     bar(); // 1
   };
 
-  const ex_24_04 = () => {
+  const 예제_24_04 = () => {
     const x = 1;
     const foo = () => {
       const x = 10;
@@ -78,7 +64,7 @@ const Chapter = () => {
     bar(); // 1
   };
 
-  const ex_24_05 = () => {
+  const 예제_24_05 = () => {
     const x = 1;
     // (1)
     const outer = () => {
@@ -97,7 +83,7 @@ const Chapter = () => {
     innerFn(); // 10
   };
 
-  const ex_24_06 = () => {
+  const 예제_24_06 = () => {
     const foo = () => {
       const x = 1;
       const y = 2;
@@ -113,7 +99,7 @@ const Chapter = () => {
     bar(); // 3
   };
 
-  const ex_24_07 = () => {
+  const 예제_24_07 = () => {
     const foo = () => {
       const x = 1;
       // bar 함수는 클로저였지만 곧바로 소멸한다.
@@ -128,7 +114,7 @@ const Chapter = () => {
     foo(); // 1
   };
 
-  const ex_24_08 = () => {
+  const 예제_24_08 = () => {
     const foo = () => {
       const x = 1;
       const y = 2;
@@ -144,7 +130,7 @@ const Chapter = () => {
     bar();
   };
 
-  const ex_24_09 = () => {
+  const 예제_24_09 = () => {
     // 카운트 상태 변수
     let num = 0;
     // 카운트 상태 변경 함수
@@ -157,7 +143,7 @@ const Chapter = () => {
     console.log(increase()); // 3
   };
 
-  const ex_24_10 = () => {
+  const 예제_24_10 = () => {
     // 카운트 상태 변경 함수
     const increase = () => {
       // 카운트 상태 변수
@@ -170,7 +156,7 @@ const Chapter = () => {
     console.log(increase()); // 1
   };
 
-  const ex_24_11 = () => {
+  const 예제_24_11 = () => {
     // 카운트 상태 변경 함수
     const increase = (() => {
       // 카운트 상태 변수
@@ -186,6 +172,32 @@ const Chapter = () => {
     console.log(increase()); // 3
   };
 
+  const 예제_24_12 = () => {
+    const counter = (() => {
+      // 카운트 상태 변수
+      let num = 0;
+
+      // 클로저인 메서드를 갖는 객체를 반환한다.
+      // 객체 리터럴은 스코프를 만들지 않는다.
+      // 따라서 아래 메서드들의 상위 스코프는 즉시 실행 함수의 렉시컬 환경이다.
+      return {
+        // num: 0, 프로퍼티는 public하므로 은닉되지 않는다.
+        increase() {
+          return ++num;
+        },
+        decrease() {
+          return num > 0 ? --num : 0;
+        },
+      };
+    })();
+
+    console.log(counter.increase()); // 1
+    console.log(counter.increase()); // 2
+
+    console.log(counter.decrease()); // 1
+    console.log(counter.decrease()); // 0
+  };
+
   return (
     <Wrapper>
       <Text.Title2>MDN 정의</Text.Title2>
@@ -193,8 +205,7 @@ const Chapter = () => {
 
       <br />
 
-      <Text>[예제 24-01]</Text>
-      <CodeBlock code={String(ex_24_01)}></CodeBlock>
+      <CodeBlock fn={예제_24_01}></CodeBlock>
       <Text>
         innerFn의 상위 스코프는 outerFn이다. 따라서 중첩 함수 innerFn 내부에서
         자신을 포함하고 있는 외부 함수 outerFn의 변수 x에 접근 가능하다.
@@ -202,8 +213,7 @@ const Chapter = () => {
 
       <br />
 
-      <Text>[예제 24-02]</Text>
-      <CodeBlock code={String(ex_24_02)}></CodeBlock>
+      <CodeBlock fn={예제_24_02}></CodeBlock>
       <Text>
         innerFn은 outerFn 내부에 선언된 함수가 아니므로 outerFn 내부에서
         innerFn을 호출한다 하더라도 outerFn의 변수에 접근할 수 없다.
@@ -225,8 +235,7 @@ const Chapter = () => {
 
       <br />
 
-      <Text>[예제 24-03]</Text>
-      <CodeBlock code={String(ex_24_03)}></CodeBlock>
+      <CodeBlock fn={예제_24_03}></CodeBlock>
       <Text>
         함수의 스코프는 함수를 어디서 정의를 했느냐에 따라 결정되므로 foo,bar 두
         함수의 상위 스코프는 전역이다.
@@ -239,8 +248,7 @@ const Chapter = () => {
 
       <br />
 
-      <Text>[예제 24-04]</Text>
-      <CodeBlock code={String(ex_24_04)}></CodeBlock>
+      <CodeBlock fn={예제_24_04}></CodeBlock>
       <Text>
         함수는 자신의 내부 슬롯 [[Enviroment]]에 자신이 정의된 환경, 즉 상위
         스코프의 참조를 저장한다.
@@ -253,8 +261,7 @@ const Chapter = () => {
 
       <br />
 
-      <Text>[예제 24-05]</Text>
-      <CodeBlock code={String(ex_24_05)}></CodeBlock>
+      <CodeBlock fn={예제_24_05}></CodeBlock>
       <Text>
         outer 함수 호출 시 중첩 함수 inner를 반환하고 함수와 함수의 지역 변수
         x의 생명 주기는 마감된다. 즉, outer 함수 종료 시 outer 함수의 실행
@@ -281,16 +288,14 @@ const Chapter = () => {
 
       <br />
 
-      <Text>[예제 24-06]</Text>
-      <CodeBlock code={String(ex_24_06)}></CodeBlock>
+      <CodeBlock fn={예제_24_06}></CodeBlock>
       <Text>
         상위 스코프의 어떤식별자도 참조하지 않는 함수는 클로저가 아니다.
       </Text>
 
       <br />
 
-      <Text>[예제 24-07]</Text>
-      <CodeBlock code={String(ex_24_07)}></CodeBlock>
+      <CodeBlock fn={예제_24_07}></CodeBlock>
       <Text>
         중첩 함수 bar는 상위 스코프의 식별자를 참조하고 있지만, 외부 함수
         foo보다 생명 주기가 짧으므로 클로저라고 보기 어렵다.
@@ -298,8 +303,7 @@ const Chapter = () => {
 
       <br />
 
-      <Text>[예제 24-08]</Text>
-      <CodeBlock code={String(ex_24_08)}></CodeBlock>
+      <CodeBlock fn={예제_24_08}></CodeBlock>
       <Text>
         클로저는 중첩 함수가 상위 스코프의 식별자를 참조하고 있고 중첩 함수가
         외부 함수보다 더 오래 유지되는 경우로 한정하는 것이 일반적이다.
@@ -316,8 +320,7 @@ const Chapter = () => {
 
       <br />
 
-      <Text>[예제 24-09]</Text>
-      <CodeBlock code={String(ex_24_09)}></CodeBlock>
+      <CodeBlock fn={예제_24_09}></CodeBlock>
       <Text>
         위의 코드의 경우 num이 전역 변수로 선언되었기 때문에 다른 부분에서 해당
         변수에 접근해 값이 변경될 여지가 있다.
@@ -325,8 +328,7 @@ const Chapter = () => {
 
       <br />
 
-      <Text>[예제 24-10]</Text>
-      <CodeBlock code={String(ex_24_10)}></CodeBlock>
+      <CodeBlock fn={예제_24_10}></CodeBlock>
       <Text>
         카운트 상태를 안전하게 변경하고 유지하기 위해 전역 변수 num을 increase
         함수의 지역 변수로 선언하였지만, increase 함수가 호출될 때마다 지역 변수
@@ -335,8 +337,7 @@ const Chapter = () => {
 
       <br />
 
-      <Text>[예제 24-11]</Text>
-      <CodeBlock code={String(ex_24_11)}></CodeBlock>
+      <CodeBlock fn={예제_24_11}></CodeBlock>
       <Text>
         위 코드 실행 시 즉시 실행 함수가 호출되고 거기서 반환된 함수가 increase
         변수에 할당된다. increase 변수에 할당된 함수는 자신이 정의된 위치에 의해
@@ -347,6 +348,11 @@ const Chapter = () => {
         특정 함수에게만 상태 변경을 허용하여 상태를 안전하게 변경하고 유지하기
         위해 사용된다.
       </Text>
+
+      <br />
+
+      <CodeBlock fn={예제_24_12}></CodeBlock>
+      <Text></Text>
     </Wrapper>
   );
 };
