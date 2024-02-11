@@ -126,21 +126,21 @@ const Text = ({
 
 const Title1 = (props: Props) => {
   return (
-    <Text xl3 semibold>
+    <Text className="mb-4" xl3 semibold>
       {props.children}
     </Text>
   );
 };
 const Title2 = (props: Props) => {
   return (
-    <Text xl2 semibold>
+    <Text className="mb-2" xl2 semibold>
       {props.children}
     </Text>
   );
 };
 const Title3 = (props: Props) => {
   return (
-    <Text xl1 semibold>
+    <Text className="mb-1" xl1 semibold>
       {props.children}
     </Text>
   );

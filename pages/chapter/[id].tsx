@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import tw, { styled } from 'twin.macro';
 
 import { Chapter01, Chapter24 } from '@/components/chapter';
-import { Flex, NotFound, Text } from '@/components/common';
+import { NotFound, Text } from '@/components/common';
 import Layout from '@/components/layouts/Layout';
 import { CHAPTER } from '@/constants';
 import { ChapterItem } from '@/types';
@@ -39,13 +39,13 @@ const Chapter = () => {
           return <NotFound></NotFound>;
         }
         return (
-          <Flex className="h-full" col flex={1} gap={16}>
+          <>
             <Text.Title1>{`[제 ${id}장] ${title}`}</Text.Title1>
             <Content>
               {id === 1 && <Chapter01></Chapter01>}
               {id === 24 && <Chapter24></Chapter24>}
             </Content>
-          </Flex>
+          </>
         );
       })()}
     </Layout>
