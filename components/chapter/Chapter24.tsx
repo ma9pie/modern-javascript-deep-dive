@@ -198,6 +198,224 @@ const Chapter = () => {
     console.log(counter.decrease()); // 0
   };
 
+  const 예제_24_13 = () => {
+    const Counter: any = (() => {
+      // [1] 카운터 상태 변수
+      let num = 0;
+
+      const Counter = () => {
+        // this.num = 0; // [2] 프로퍼티는 public하므로 은닉되지 않는다.
+      };
+
+      Counter.prototype.increase = () => {
+        return ++num;
+      };
+
+      Counter.prototype.decrease = () => {
+        return num > 0 ? --num : 0;
+      };
+
+      return Counter;
+    })();
+
+    const counter = new Counter();
+
+    console.log(counter.increase()); // 1
+    console.log(counter.increase()); // 2
+
+    console.log(counter.decrease()); // 1
+    console.log(counter.decrease()); // 0
+  };
+
+  const 예제_24_14 = () => {
+    // 함수를 인수로 전달받고 함수를 반환하는 고차 함수
+    // 이 함수는 카운트 상태를 유지하기 위한 자유 변수 counter를 기억하는 클로저를 반환한다.
+    const makeCounter = (aux: (n: number) => void) => {
+      // 카운트 상태를 유지하기 위한 자유 변수
+      let counter: any = 0;
+
+      // 클로저를 반환
+      return () => {
+        // 인수로 전달받은 보조 함수에 상태 변경을 위임한다.
+        counter = aux(counter);
+        return counter;
+      };
+    };
+
+    // 보조 함수
+    const increase = (n: number) => {
+      return ++n;
+    };
+
+    // 보조 함수
+    const decrease = (n: number) => {
+      return --n;
+    };
+
+    // 함수로 함수를 생성한다.
+    // makeCounter 함수는 보조 함수를 인수로 전달받아 함수를 반환한다.
+    const increaser = makeCounter(increase);
+    console.log(increaser()); // 1
+    console.log(increaser()); // 2
+
+    const decreaser = makeCounter(decrease);
+    console.log(decreaser()); // -1
+    console.log(decreaser()); // -2
+  };
+
+  const 예제_24_15 = () => {
+    // 함수를 반환하는 고차 함수
+    // 이 함수는 카운트 상태를 유지하기 위한 자유 변수 counter를 기억하는 클로저를 반환한다.
+    const counter = (() => {
+      // 카운트 상태를 유지하기 위한 자유 변수
+      let counter: any = 0;
+
+      // 함수를 인수로 전달받는 클로저를 반환
+      return (aux: (n: number) => void) => {
+        // 인수로 전달받은 보조 함수에 상태 변경을 위임한다.
+        counter = aux(counter);
+        return counter;
+      };
+    })();
+
+    // 보조 함수
+    const increase = (n: number) => {
+      return ++n;
+    };
+
+    // 보조 함수
+    const decrease = (n: number) => {
+      return --n;
+    };
+
+    // 보조함수를 전달하여 호출
+    console.log(counter(increase)); // 1
+    console.log(counter(increase)); // 2
+
+    // 자유 변수를 공유한다.
+    console.log(counter(decrease)); // 1
+    console.log(counter(decrease)); // 0
+  };
+
+  const 예제_24_16 = () => {
+    function Person(
+      this: {
+        name: string;
+        sayHi: () => void;
+      },
+      name: string,
+      age: number
+    ) {
+      this.name = name;
+      let _age = age;
+
+      // 인스턴스 메서드
+      this.sayHi = () => {
+        console.log(`Hi! My name is ${this.name}. I am ${_age}.`);
+      };
+    }
+
+    const me = new (Person as any)('Lee', 20);
+    me.sayHi(); // Hi! My name is Lee. I am 20.
+    console.log(me.name); // Lee
+    console.log(me._age); // undefined
+
+    const you = new (Person as any)('Kim', 30);
+    you.sayHi(); // Hi! My name is Kim. I am 30.
+    console.log(you.name); // Kim
+    console.log(you._age); // undefined
+  };
+
+  const 예제_24_17 = () => {
+    function Person(
+      this: {
+        name: string;
+      },
+      name: string,
+      age: number
+    ) {
+      this.name = name;
+      let _age = age;
+    }
+
+    // 프로토타입 메서드
+    Person.prototype.sayHi = function () {
+      // Person 생성자 함수의 지역 변수 _age를 참조할 수 없다.
+      // console.log(`Hi! My name is ${this.name}. I am ${_age}.`);
+    };
+  };
+
+  const 예제_24_18 = () => {
+    const Person = (function () {
+      let _age = 0; // private
+
+      // 생성자 함수
+      function Person(
+        this: {
+          name: string;
+        },
+        name: string,
+        age: number
+      ) {
+        this.name = name;
+        _age = age;
+      }
+
+      // 프로토타입 메서드
+      Person.prototype.sayHi = function () {
+        console.log(`Hi! My name is ${this.name}. I am ${_age}.`);
+      };
+
+      // 생성자 함수를 반환
+      return Person;
+    })();
+
+    const me = new (Person as any)('Lee', 20);
+    me.sayHi(); // Hi! My name is Lee. I am 20.
+    console.log(me.name); // Lee
+    console.log(me._age); // undefined
+
+    const you = new (Person as any)('Kim', 30);
+    you.sayHi(); // Hi! My name is Kim. I am 30.
+    console.log(you.name); // Kim
+    console.log(you._age); // undefined
+  };
+
+  const 예제_24_19 = () => {
+    const Person = (function () {
+      let _age = 0; // private
+
+      // 생성자 함수
+      function Person(
+        this: {
+          name: string;
+        },
+        name: string,
+        age: number
+      ) {
+        this.name = name;
+        _age = age;
+      }
+
+      // 프로토타입 메서드
+      Person.prototype.sayHi = function () {
+        console.log(`Hi! My name is ${this.name}. I am ${_age}.`);
+      };
+
+      // 생성자 함수를 반환
+      return Person;
+    })();
+
+    const me = new (Person as any)('Lee', 20);
+    me.sayHi(); // Hi! My name is Lee. I am 20.
+
+    const you = new (Person as any)('Kim', 30);
+    you.sayHi(); // Hi! My name is Kim. I am 30.
+
+    // _age 변수 값이 변경된다!
+    me.sayHi(); // Hi! My name is Lee. I am 30.
+  };
+
   return (
     <Wrapper>
       <Text.Title2>MDN 정의</Text.Title2>
@@ -229,7 +447,7 @@ const Chapter = () => {
         스코프)라 한다.
       </Text>
       <Text>
-        {`"함수의 상위 스코프를 결정한다." <-> "렉시컬 환경의 외부 렉시컬 환경에 대한
+        {`"함수의 상위 스코프를 결정한다." === "렉시컬 환경의 외부 렉시컬 환경에 대한
         참조에 저장할 참조값을 결정한다."`}
       </Text>
 
@@ -290,7 +508,7 @@ const Chapter = () => {
 
       <CodeBlock fn={예제_24_06}></CodeBlock>
       <Text>
-        상위 스코프의 어떤식별자도 참조하지 않는 함수는 클로저가 아니다.
+        상위 스코프의 어떤 식별자도 참조하지 않는 함수는 클로저가 아니다.
       </Text>
 
       <br />
@@ -343,6 +561,9 @@ const Chapter = () => {
         변수에 할당된다. increase 변수에 할당된 함수는 자신이 정의된 위치에 의해
         결정된 상위 스코프인 즉시 실행 함수의 렉시컬 환경을 기억하는 클로저이다.
       </Text>
+
+      <br />
+
       <Text>
         이처럼 클로저는 상태가 의도치 않게 변경되지 않도록 안전하게 은닉하고
         특정 함수에게만 상태 변경을 허용하여 상태를 안전하게 변경하고 유지하기
@@ -352,7 +573,130 @@ const Chapter = () => {
       <br />
 
       <CodeBlock fn={예제_24_12}></CodeBlock>
-      <Text></Text>
+      <Text>
+        위의 예제에서 increase, decrease 함수의 상위 스코프는 두 함수가 평가되는
+        시점에 실행중인 실행 컨텍스트인 즉시 실행 함수 실행 컨텍스트의 렉시컬
+        환경이다. 따라서 두 함수는 언제 어디에서 호출되든 상관없이 즉시 실행
+        함수의 스코프의 식별자를 참조할 수 있다.
+      </Text>
+
+      <br />
+
+      <CodeBlock fn={예제_24_13}></CodeBlock>
+      <Text>
+        [1] num은 생성자 함수 Counter가 생성할 인스턴스의 프로퍼티가 아니라 즉시
+        실행 함수 내에서 선언된 변수다.
+      </Text>
+      <Text>
+        [2] num이 인스턴스의 프로퍼티라면 인스턴스를 통해 외부에서 접근이
+        자유로운 public 프로퍼티가 됐겠지만, 즉시 실행 함수 내에서 선언되었기
+        때문에 인스턴스를 통해 접근할 수 없으며, 외부에서도 접근할 수 없는
+        은닉된 변수이다.
+      </Text>
+      <Text>
+        이처럼 가변 데이터를 피하고 불변성을 지향하는 함수형 프로그래밍에서 부수
+        효과를 최대한 억제하여 오류를 피하고 프로그램의 안정성을 높이기 위해서
+        클로저를 사용한다.
+      </Text>
+
+      <br />
+
+      <CodeBlock fn={예제_24_14}></CodeBlock>
+      <Text>
+        makeCounter 함수를 호출해 함수를 반환할 때 반환된 함수는 자신만의 독립된
+        렉시컬 환경을 갖는다.
+      </Text>
+      <Text>
+        위의 예제에서 전역 변수 increaser와 decreaser에 할당된 함수는 각각
+        자신만의 독립된 렉시컬 환경을 갖기 때문에 카운트를 유지하기 위한
+        자유변수 counter를 공유하지 않아 카운터의 증감이 연동되지 않는다.
+      </Text>
+
+      <br />
+
+      <CodeBlock fn={예제_24_15}></CodeBlock>
+
+      <br />
+      <br />
+
+      <Text.Title2>캡슐화와 정보 은닉</Text.Title2>
+      <Text>
+        캡슐화는 객체의 상태를 나타내는 프로퍼티와 프로퍼티를 참조하고 조작할 수
+        있는 동작인 메서드를 하나로 묶는 것을 말한다. 캡슐화는 객체의 특정
+        프로퍼티나 메서드를 감출 목적으로 사용하기도 하는데 이를 정보 은닉이라
+        한다.
+      </Text>
+
+      <br />
+
+      <List
+        list={[
+          '정보를 은닉하여 적절치 못한 접근으로 객체의 상태가 변경되는 것을 방지',
+          '객체 간의 상호 의존성(결합도)을 낮춤',
+        ]}
+      ></List>
+
+      <br />
+
+      <CodeBlock fn={예제_24_16}></CodeBlock>
+      <Text>
+        위의 예제에서 name 프로퍼티(public)는 현재 외부로 공개되어 있어 자유롭게
+        참조하거나 수정할 수 있으나, _age 변수(private)는 지역 변수이므로 함수
+        외부에서 참조하거나 변경할 수 없다.
+      </Text>
+      <Text>
+        하지만 위의 예제에서는 sayHi 메서드는 인스턴스 메서드이므로 Person
+        객체가 생성될 때마다 중복 생성된다.
+      </Text>
+
+      <br />
+
+      <CodeBlock fn={예제_24_17}></CodeBlock>
+      <Text>
+        인스턴스 메서드 중복 생성을 방지하기 위해 prototype 메서드로
+        변경하였지만, Person 생성자 함수의 지역 변수 _age를 참조할 수 없는
+        문제가 발생한다.
+      </Text>
+
+      <br />
+
+      <CodeBlock fn={예제_24_18}></CodeBlock>
+      <Text>
+        즉시 실행 함수가 반환하는 Person 생성자 함수와 Person 생성자 함수의
+        인스턴스가 상속받아 호출할 Person.prototype.sayHi 메서드는 즉시 실행
+        함수가 종료된 이후 호출된다. 하지만 Person 생성자 함수와 sayHi 메서드는
+        이미 종료되어 소멸한 즉시 실행 함수의 지역 변수 _age를 참조할 수 있는
+        클로저이다.
+      </Text>
+
+      <br />
+
+      <CodeBlock fn={예제_24_19}></CodeBlock>
+      <Text>
+        하지만 위의 코드의 경우 Person 생성자가 여러개의 인스턴스를 생성할 경우
+        다음과 같이 _age 변수의 상태가 변경되는 문제점이 있다.
+      </Text>
+
+      <br />
+
+      <Text>
+        이는 Person.prototype.sayHi 메서드가 단 한 번 생성되는 클로저이기 때문에
+        발생하는 현상이다. Person.prototype.sayHi 메서드는 자신의 상위 스코프인
+        즉시 실행 함수의 실행 컨텍스트의 렉시컬 환경의 참조를 [[Enviroment]]에
+        저장하여 기억한다. 따라서 Person 생성자 함수의 모든 인스턴스가 상속을
+        통해 호출할 수 있는 Person.prototype.sayHi 메서드의 상위 스코프는 어떤
+        인스턴스로 호출하더라도 하나의 동일한 상위 스코프를 사용하게 된다.
+        이러한 이유로 Person 생성자 함수가 여러개의 인스턴스를 생성할 경우 위와
+        같이 _age 변수의 상태가 유지되지 않는다.
+      </Text>
+
+      <br />
+
+      <Text>
+        이처럼 자바스크립트는 정보 은닉을 완전하게 지원하지는 않지만, 다행히도
+        2021년 1월에 TC39 프로세스의 stage 3(candidate)에는 클래스에 private
+        필드를 정의할 수 있는 새로운 표준 사양이 제안되었다.
+      </Text>
     </Wrapper>
   );
 };

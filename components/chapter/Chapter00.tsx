@@ -15,7 +15,19 @@ const Chapter = () => {
     // code
   }, []);
 
-  return <Wrapper></Wrapper>;
+  const 예제_00_00 = () => {};
+
+  return (
+    <Wrapper>
+      <Text.Title2>제목</Text.Title2>
+      <Text>내용1</Text>
+
+      <br />
+
+      <CodeBlock fn={예제_00_00}></CodeBlock>
+      <Text>내용2</Text>
+    </Wrapper>
+  );
 };
 
 export default Chapter;

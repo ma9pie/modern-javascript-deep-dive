@@ -6,9 +6,7 @@ import { List, Spacing, Text } from '@/components/common';
 const Chapter = () => {
   return (
     <Wrapper>
-      <Text lg semibold>
-        프로그래밍이란?
-      </Text>
+      <Text.Title2>프로그래밍이란?</Text.Title2>
       <List
         list={[
           '사용자와 컴퓨터간의 커뮤니케이션',
@@ -16,11 +14,9 @@ const Chapter = () => {
         ]}
       ></List>
 
-      <Spacing height={32}></Spacing>
+      <br />
 
-      <Text lg semibold>
-        프로그래밍 언어
-      </Text>
+      <Text.Title2>프로그래밍 언어</Text.Title2>
       <Text>
         사람과 컴퓨터는 기계어로 소통을 하며, 둘 사이의 번역기를 컴파일러 혹은
         인터프리터라고 한다.
