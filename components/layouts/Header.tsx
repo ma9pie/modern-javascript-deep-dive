@@ -32,10 +32,10 @@ const Header = () => {
                 alt="logo"
               ></Image>
               <Flex items="end" gap={8}>
-                <Text xl2 bold>
+                <Text _2xl bold>
                   모던
                 </Text>
-                <Text xl2 bold>
+                <Text _2xl bold>
                   자바스크립트
                 </Text>
                 <Text xl semibold>

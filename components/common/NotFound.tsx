@@ -6,10 +6,10 @@ import { Text } from '@/components/common';
 const NotFound = () => {
   return (
     <Wrapper>
-      <Text bold center xl9>
+      <Text bold center _9xl>
         404
       </Text>
-      <Text bold center xl6>
+      <Text bold center _6xl>
         Not found
       </Text>
     </Wrapper>

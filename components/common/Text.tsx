@@ -13,14 +13,14 @@ interface Props {
   md?: boolean;
   lg?: boolean;
   xl?: boolean;
-  xl2?: boolean;
-  xl3?: boolean;
-  xl4?: boolean;
-  xl5?: boolean;
-  xl6?: boolean;
-  xl7?: boolean;
-  xl8?: boolean;
-  xl9?: boolean;
+  _2xl?: boolean;
+  _3xl?: boolean;
+  _4xl?: boolean;
+  _5xl?: boolean;
+  _6xl?: boolean;
+  _7xl?: boolean;
+  _8xl?: boolean;
+  _9xl?: boolean;
 
   medium?: boolean;
   semibold?: boolean;
@@ -53,14 +53,14 @@ const Text = ({
   md,
   lg,
   xl,
-  xl2,
-  xl3,
-  xl4,
-  xl5,
-  xl6,
-  xl7,
-  xl8,
-  xl9,
+  _2xl,
+  _3xl,
+  _4xl,
+  _5xl,
+  _6xl,
+  _7xl,
+  _8xl,
+  _9xl,
 
   medium,
   semibold,
@@ -95,14 +95,14 @@ const Text = ({
       md={md}
       lg={lg}
       xl={xl}
-      xl2={xl2}
-      xl3={xl3}
-      xl4={xl4}
-      xl5={xl5}
-      xl6={xl6}
-      xl7={xl7}
-      xl8={xl8}
-      xl9={xl9}
+      _2xl={_2xl}
+      _3xl={_3xl}
+      _4xl={_4xl}
+      _5xl={_5xl}
+      _6xl={_6xl}
+      _7xl={_7xl}
+      _8xl={_8xl}
+      _9xl={_9xl}
       medium={medium}
       semibold={semibold}
       bold={bold}
@@ -126,21 +126,21 @@ const Text = ({
 
 const Title1 = (props: Props) => {
   return (
-    <Text className="mb-4" xl3 semibold>
+    <Text className="mb-4" _3xl semibold>
       {props.children}
     </Text>
   );
 };
 const Title2 = (props: Props) => {
   return (
-    <Text className="mb-2" xl2 semibold>
+    <Text className="mb-2" _2xl semibold>
       {props.children}
     </Text>
   );
 };
 const Title3 = (props: Props) => {
   return (
-    <Text className="mb-1" xl1 semibold>
+    <Text className="mb-1" xl semibold>
       {props.children}
     </Text>
   );
@@ -159,14 +159,14 @@ const P = styled.p<Props>`
   ${(props) => props.md && tw`text-base`};
   ${(props) => props.lg && tw`text-lg`};
   ${(props) => props.xl && tw`text-xl`};
-  ${(props) => props.xl2 && tw`text-2xl`};
-  ${(props) => props.xl3 && tw`text-3xl`};
-  ${(props) => props.xl4 && tw`text-4xl`};
-  ${(props) => props.xl5 && tw`text-5xl`};
-  ${(props) => props.xl6 && tw`text-6xl`};
-  ${(props) => props.xl7 && tw`text-7xl`};
-  ${(props) => props.xl8 && tw`text-8xl`};
-  ${(props) => props.xl9 && tw`text-9xl`};
+  ${(props) => props._2xl && tw`text-2xl`};
+  ${(props) => props._3xl && tw`text-3xl`};
+  ${(props) => props._4xl && tw`text-4xl`};
+  ${(props) => props._5xl && tw`text-5xl`};
+  ${(props) => props._6xl && tw`text-6xl`};
+  ${(props) => props._7xl && tw`text-7xl`};
+  ${(props) => props._8xl && tw`text-8xl`};
+  ${(props) => props._9xl && tw`text-9xl`};
 
   ${(props) => props.medium && tw`font-medium`};
   ${(props) => props.semibold && tw`font-semibold`};
