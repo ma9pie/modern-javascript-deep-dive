@@ -1,421 +1,10 @@
 import React from 'react';
 import tw, { styled } from 'twin.macro';
 
-import {
-  CodeBlock,
-  Divider,
-  Flex,
-  List,
-  Spacing,
-  Text,
-} from '@/components/common';
+import { CodeBlock, List, Text } from '@/components/common';
+import { chapter24 } from '@/example';
 
 const Chapter = () => {
-  const 예제_24_01 = () => {
-    const x = 1;
-    const outerFn = () => {
-      const x = 10;
-      const innerFn = () => {
-        console.log(x); // 10
-      };
-      innerFn();
-    };
-    outerFn();
-  };
-
-  const 예제_24_02 = () => {
-    const x = 1;
-    const outerFn = () => {
-      const x = 10;
-      innerFn();
-    };
-    const innerFn = () => {
-      console.log(x); // 1
-    };
-    outerFn();
-  };
-
-  const 예제_24_03 = () => {
-    const x = 1;
-    const foo = () => {
-      const x = 10;
-      bar();
-    };
-    const bar = () => {
-      console.log(x);
-    };
-    foo(); // 1
-    bar(); // 1
-  };
-
-  const 예제_24_04 = () => {
-    const x = 1;
-    const foo = () => {
-      const x = 10;
-      // 상위 스코프는 함수 정의 환경(위치)에 따라 결정된다.
-      // 함수 호출 위치와 상위 스코프는 아무런 관계가 없다.
-      bar();
-    };
-    // 함수 bar는 자신의 상위 스코프, 즉 전역 렉시컬 환경을 함수 객체의 내부 슬롯인 [[Environment]]에 저장하여 기억한다.
-    const bar = () => {
-      console.log(x);
-    };
-    foo(); // 1
-    bar(); // 1
-  };
-
-  const 예제_24_05 = () => {
-    const x = 1;
-    // (1)
-    const outer = () => {
-      const x = 10;
-      // (2)
-      const inner = () => {
-        console.log(x);
-      };
-      return inner;
-    };
-    // (3)
-    // outer 함수를 호출하면 중첩 함수 inner을 반환한다.
-    // 그리고 outer 함수의 실행 컨텍스트는 실행 컨텍스트 스택에서 pop되어 제거된다.
-    const innerFn = outer();
-    // (4)
-    innerFn(); // 10
-  };
-
-  const 예제_24_06 = () => {
-    const foo = () => {
-      const x = 1;
-      const y = 2;
-      // 일반적으로 아래의 함수를 클로저라고 하지 않는다.
-      const bar = () => {
-        // debugger;
-        const z = 3;
-        console.log(z);
-      };
-      return bar;
-    };
-    const bar = foo();
-    bar(); // 3
-  };
-
-  const 예제_24_07 = () => {
-    const foo = () => {
-      const x = 1;
-      // bar 함수는 클로저였지만 곧바로 소멸한다.
-      // 이러한 함수는 일반적으로 클로저라고 하지 않는다.
-      const bar = () => {
-        // debugger;
-        // 상위 스코프의 식별자를 참조한다.
-        console.log(x);
-      };
-      bar();
-    };
-    foo(); // 1
-  };
-
-  const 예제_24_08 = () => {
-    const foo = () => {
-      const x = 1;
-      const y = 2;
-      // 클로저
-      // 중첩 함수 bar는 외부 함수보다 더 오래 유지되며 상위 스코프의 식별자를 참조한다.
-      const bar = () => {
-        // debugger;
-        console.log(x);
-      };
-      return bar;
-    };
-    const bar = foo(); // 1
-    bar();
-  };
-
-  const 예제_24_09 = () => {
-    // 카운트 상태 변수
-    let num = 0;
-    // 카운트 상태 변경 함수
-    // 카운트 상태를 1만큼 증가시킨다.
-    const increase = () => {
-      return ++num;
-    };
-    console.log(increase()); // 1
-    console.log(increase()); // 2
-    console.log(increase()); // 3
-  };
-
-  const 예제_24_10 = () => {
-    // 카운트 상태 변경 함수
-    const increase = () => {
-      // 카운트 상태 변수
-      let num = 0;
-      // 카운트 상태를 1만큼 증가시킨다.
-      return ++num;
-    };
-    console.log(increase()); // 1
-    console.log(increase()); // 1
-    console.log(increase()); // 1
-  };
-
-  const 예제_24_11 = () => {
-    // 카운트 상태 변경 함수
-    const increase = (() => {
-      // 카운트 상태 변수
-      let num = 0;
-      // 클로저
-      return () => {
-        // 카운트 상태를 1만큼 증가시킨다.
-        return ++num;
-      };
-    })();
-    console.log(increase()); // 1
-    console.log(increase()); // 2
-    console.log(increase()); // 3
-  };
-
-  const 예제_24_12 = () => {
-    const counter = (() => {
-      // 카운트 상태 변수
-      let num = 0;
-
-      // 클로저인 메서드를 갖는 객체를 반환한다.
-      // 객체 리터럴은 스코프를 만들지 않는다.
-      // 따라서 아래 메서드들의 상위 스코프는 즉시 실행 함수의 렉시컬 환경이다.
-      return {
-        // num: 0, 프로퍼티는 public하므로 은닉되지 않는다.
-        increase() {
-          return ++num;
-        },
-        decrease() {
-          return num > 0 ? --num : 0;
-        },
-      };
-    })();
-
-    console.log(counter.increase()); // 1
-    console.log(counter.increase()); // 2
-
-    console.log(counter.decrease()); // 1
-    console.log(counter.decrease()); // 0
-  };
-
-  const 예제_24_13 = () => {
-    const Counter: any = (() => {
-      // [1] 카운터 상태 변수
-      let num = 0;
-
-      const Counter = () => {
-        // this.num = 0; // [2] 프로퍼티는 public하므로 은닉되지 않는다.
-      };
-
-      Counter.prototype.increase = () => {
-        return ++num;
-      };
-
-      Counter.prototype.decrease = () => {
-        return num > 0 ? --num : 0;
-      };
-
-      return Counter;
-    })();
-
-    const counter = new Counter();
-
-    console.log(counter.increase()); // 1
-    console.log(counter.increase()); // 2
-
-    console.log(counter.decrease()); // 1
-    console.log(counter.decrease()); // 0
-  };
-
-  const 예제_24_14 = () => {
-    // 함수를 인수로 전달받고 함수를 반환하는 고차 함수
-    // 이 함수는 카운트 상태를 유지하기 위한 자유 변수 counter를 기억하는 클로저를 반환한다.
-    const makeCounter = (aux: (n: number) => void) => {
-      // 카운트 상태를 유지하기 위한 자유 변수
-      let counter: any = 0;
-
-      // 클로저를 반환
-      return () => {
-        // 인수로 전달받은 보조 함수에 상태 변경을 위임한다.
-        counter = aux(counter);
-        return counter;
-      };
-    };
-
-    // 보조 함수
-    const increase = (n: number) => {
-      return ++n;
-    };
-
-    // 보조 함수
-    const decrease = (n: number) => {
-      return --n;
-    };
-
-    // 함수로 함수를 생성한다.
-    // makeCounter 함수는 보조 함수를 인수로 전달받아 함수를 반환한다.
-    const increaser = makeCounter(increase);
-    console.log(increaser()); // 1
-    console.log(increaser()); // 2
-
-    const decreaser = makeCounter(decrease);
-    console.log(decreaser()); // -1
-    console.log(decreaser()); // -2
-  };
-
-  const 예제_24_15 = () => {
-    // 함수를 반환하는 고차 함수
-    // 이 함수는 카운트 상태를 유지하기 위한 자유 변수 counter를 기억하는 클로저를 반환한다.
-    const counter = (() => {
-      // 카운트 상태를 유지하기 위한 자유 변수
-      let counter: any = 0;
-
-      // 함수를 인수로 전달받는 클로저를 반환
-      return (aux: (n: number) => void) => {
-        // 인수로 전달받은 보조 함수에 상태 변경을 위임한다.
-        counter = aux(counter);
-        return counter;
-      };
-    })();
-
-    // 보조 함수
-    const increase = (n: number) => {
-      return ++n;
-    };
-
-    // 보조 함수
-    const decrease = (n: number) => {
-      return --n;
-    };
-
-    // 보조함수를 전달하여 호출
-    console.log(counter(increase)); // 1
-    console.log(counter(increase)); // 2
-
-    // 자유 변수를 공유한다.
-    console.log(counter(decrease)); // 1
-    console.log(counter(decrease)); // 0
-  };
-
-  const 예제_24_16 = () => {
-    function Person(
-      this: {
-        name: string;
-        sayHi: () => void;
-      },
-      name: string,
-      age: number
-    ) {
-      this.name = name;
-      let _age = age;
-
-      // 인스턴스 메서드
-      this.sayHi = () => {
-        console.log(`Hi! My name is ${this.name}. I am ${_age}.`);
-      };
-    }
-
-    const me = new (Person as any)('Lee', 20);
-    me.sayHi(); // Hi! My name is Lee. I am 20.
-    console.log(me.name); // Lee
-    console.log(me._age); // undefined
-
-    const you = new (Person as any)('Kim', 30);
-    you.sayHi(); // Hi! My name is Kim. I am 30.
-    console.log(you.name); // Kim
-    console.log(you._age); // undefined
-  };
-
-  const 예제_24_17 = () => {
-    function Person(
-      this: {
-        name: string;
-      },
-      name: string,
-      age: number
-    ) {
-      this.name = name;
-      let _age = age;
-    }
-
-    // 프로토타입 메서드
-    Person.prototype.sayHi = function () {
-      // Person 생성자 함수의 지역 변수 _age를 참조할 수 없다.
-      // console.log(`Hi! My name is ${this.name}. I am ${_age}.`);
-    };
-  };
-
-  const 예제_24_18 = () => {
-    const Person = (function () {
-      let _age = 0; // private
-
-      // 생성자 함수
-      function Person(
-        this: {
-          name: string;
-        },
-        name: string,
-        age: number
-      ) {
-        this.name = name;
-        _age = age;
-      }
-
-      // 프로토타입 메서드
-      Person.prototype.sayHi = function () {
-        console.log(`Hi! My name is ${this.name}. I am ${_age}.`);
-      };
-
-      // 생성자 함수를 반환
-      return Person;
-    })();
-
-    const me = new (Person as any)('Lee', 20);
-    me.sayHi(); // Hi! My name is Lee. I am 20.
-    console.log(me.name); // Lee
-    console.log(me._age); // undefined
-
-    const you = new (Person as any)('Kim', 30);
-    you.sayHi(); // Hi! My name is Kim. I am 30.
-    console.log(you.name); // Kim
-    console.log(you._age); // undefined
-  };
-
-  const 예제_24_19 = () => {
-    const Person = (function () {
-      let _age = 0; // private
-
-      // 생성자 함수
-      function Person(
-        this: {
-          name: string;
-        },
-        name: string,
-        age: number
-      ) {
-        this.name = name;
-        _age = age;
-      }
-
-      // 프로토타입 메서드
-      Person.prototype.sayHi = function () {
-        console.log(`Hi! My name is ${this.name}. I am ${_age}.`);
-      };
-
-      // 생성자 함수를 반환
-      return Person;
-    })();
-
-    const me = new (Person as any)('Lee', 20);
-    me.sayHi(); // Hi! My name is Lee. I am 20.
-
-    const you = new (Person as any)('Kim', 30);
-    you.sayHi(); // Hi! My name is Kim. I am 30.
-
-    // _age 변수 값이 변경된다!
-    me.sayHi(); // Hi! My name is Lee. I am 30.
-  };
-
   return (
     <Wrapper>
       <Text.Title2>MDN 정의</Text.Title2>
@@ -423,7 +12,7 @@ const Chapter = () => {
 
       <br />
 
-      <CodeBlock fn={예제_24_01}></CodeBlock>
+      <CodeBlock fn={chapter24.ex_24_01}></CodeBlock>
       <Text>
         innerFn의 상위 스코프는 outerFn이다. 따라서 중첩 함수 innerFn 내부에서
         자신을 포함하고 있는 외부 함수 outerFn의 변수 x에 접근 가능하다.
@@ -431,7 +20,7 @@ const Chapter = () => {
 
       <br />
 
-      <CodeBlock fn={예제_24_02}></CodeBlock>
+      <CodeBlock fn={chapter24.ex_24_02}></CodeBlock>
       <Text>
         innerFn은 outerFn 내부에 선언된 함수가 아니므로 outerFn 내부에서
         innerFn을 호출한다 하더라도 outerFn의 변수에 접근할 수 없다.
@@ -453,7 +42,7 @@ const Chapter = () => {
 
       <br />
 
-      <CodeBlock fn={예제_24_03}></CodeBlock>
+      <CodeBlock fn={chapter24.ex_24_03}></CodeBlock>
       <Text>
         함수의 스코프는 함수를 어디서 정의를 했느냐에 따라 결정되므로 foo,bar 두
         함수의 상위 스코프는 전역이다.
@@ -466,7 +55,7 @@ const Chapter = () => {
 
       <br />
 
-      <CodeBlock fn={예제_24_04}></CodeBlock>
+      <CodeBlock fn={chapter24.ex_24_04}></CodeBlock>
       <Text>
         함수는 자신의 내부 슬롯 [[Enviroment]]에 자신이 정의된 환경, 즉 상위
         스코프의 참조를 저장한다.
@@ -479,7 +68,7 @@ const Chapter = () => {
 
       <br />
 
-      <CodeBlock fn={예제_24_05}></CodeBlock>
+      <CodeBlock fn={chapter24.ex_24_05}></CodeBlock>
       <Text>
         outer 함수 호출 시 중첩 함수 inner를 반환하고 함수와 함수의 지역 변수
         x의 생명 주기는 마감된다. 즉, outer 함수 종료 시 outer 함수의 실행
@@ -506,14 +95,14 @@ const Chapter = () => {
 
       <br />
 
-      <CodeBlock fn={예제_24_06}></CodeBlock>
+      <CodeBlock fn={chapter24.ex_24_06}></CodeBlock>
       <Text>
         상위 스코프의 어떤 식별자도 참조하지 않는 함수는 클로저가 아니다.
       </Text>
 
       <br />
 
-      <CodeBlock fn={예제_24_07}></CodeBlock>
+      <CodeBlock fn={chapter24.ex_24_07}></CodeBlock>
       <Text>
         중첩 함수 bar는 상위 스코프의 식별자를 참조하고 있지만, 외부 함수
         foo보다 생명 주기가 짧으므로 클로저라고 보기 어렵다.
@@ -521,7 +110,7 @@ const Chapter = () => {
 
       <br />
 
-      <CodeBlock fn={예제_24_08}></CodeBlock>
+      <CodeBlock fn={chapter24.ex_24_08}></CodeBlock>
       <Text>
         클로저는 중첩 함수가 상위 스코프의 식별자를 참조하고 있고 중첩 함수가
         외부 함수보다 더 오래 유지되는 경우로 한정하는 것이 일반적이다.
@@ -538,7 +127,7 @@ const Chapter = () => {
 
       <br />
 
-      <CodeBlock fn={예제_24_09}></CodeBlock>
+      <CodeBlock fn={chapter24.ex_24_09}></CodeBlock>
       <Text>
         위의 코드의 경우 num이 전역 변수로 선언되었기 때문에 다른 부분에서 해당
         변수에 접근해 값이 변경될 여지가 있다.
@@ -546,7 +135,7 @@ const Chapter = () => {
 
       <br />
 
-      <CodeBlock fn={예제_24_10}></CodeBlock>
+      <CodeBlock fn={chapter24.ex_24_10}></CodeBlock>
       <Text>
         카운트 상태를 안전하게 변경하고 유지하기 위해 전역 변수 num을 increase
         함수의 지역 변수로 선언하였지만, increase 함수가 호출될 때마다 지역 변수
@@ -555,7 +144,7 @@ const Chapter = () => {
 
       <br />
 
-      <CodeBlock fn={예제_24_11}></CodeBlock>
+      <CodeBlock fn={chapter24.ex_24_11}></CodeBlock>
       <Text>
         위 코드 실행 시 즉시 실행 함수가 호출되고 거기서 반환된 함수가 increase
         변수에 할당된다. increase 변수에 할당된 함수는 자신이 정의된 위치에 의해
@@ -572,7 +161,7 @@ const Chapter = () => {
 
       <br />
 
-      <CodeBlock fn={예제_24_12}></CodeBlock>
+      <CodeBlock fn={chapter24.ex_24_12}></CodeBlock>
       <Text>
         위의 예제에서 increase, decrease 함수의 상위 스코프는 두 함수가 평가되는
         시점에 실행중인 실행 컨텍스트인 즉시 실행 함수 실행 컨텍스트의 렉시컬
@@ -582,7 +171,7 @@ const Chapter = () => {
 
       <br />
 
-      <CodeBlock fn={예제_24_13}></CodeBlock>
+      <CodeBlock fn={chapter24.ex_24_13}></CodeBlock>
       <Text>
         [1] num은 생성자 함수 Counter가 생성할 인스턴스의 프로퍼티가 아니라 즉시
         실행 함수 내에서 선언된 변수다.
@@ -601,7 +190,7 @@ const Chapter = () => {
 
       <br />
 
-      <CodeBlock fn={예제_24_14}></CodeBlock>
+      <CodeBlock fn={chapter24.ex_24_14}></CodeBlock>
       <Text>
         makeCounter 함수를 호출해 함수를 반환할 때 반환된 함수는 자신만의 독립된
         렉시컬 환경을 갖는다.
@@ -614,7 +203,7 @@ const Chapter = () => {
 
       <br />
 
-      <CodeBlock fn={예제_24_15}></CodeBlock>
+      <CodeBlock fn={chapter24.ex_24_15}></CodeBlock>
 
       <br />
       <br />
@@ -638,7 +227,7 @@ const Chapter = () => {
 
       <br />
 
-      <CodeBlock fn={예제_24_16}></CodeBlock>
+      <CodeBlock fn={chapter24.ex_24_16}></CodeBlock>
       <Text>
         위의 예제에서 name 프로퍼티(public)는 현재 외부로 공개되어 있어 자유롭게
         참조하거나 수정할 수 있으나, _age 변수(private)는 지역 변수이므로 함수
@@ -651,7 +240,7 @@ const Chapter = () => {
 
       <br />
 
-      <CodeBlock fn={예제_24_17}></CodeBlock>
+      <CodeBlock fn={chapter24.ex_24_17}></CodeBlock>
       <Text>
         인스턴스 메서드 중복 생성을 방지하기 위해 prototype 메서드로
         변경하였지만, Person 생성자 함수의 지역 변수 _age를 참조할 수 없는
@@ -660,7 +249,7 @@ const Chapter = () => {
 
       <br />
 
-      <CodeBlock fn={예제_24_18}></CodeBlock>
+      <CodeBlock fn={chapter24.ex_24_18}></CodeBlock>
       <Text>
         즉시 실행 함수가 반환하는 Person 생성자 함수와 Person 생성자 함수의
         인스턴스가 상속받아 호출할 Person.prototype.sayHi 메서드는 즉시 실행
@@ -671,7 +260,7 @@ const Chapter = () => {
 
       <br />
 
-      <CodeBlock fn={예제_24_19}></CodeBlock>
+      <CodeBlock fn={chapter24.ex_24_19}></CodeBlock>
       <Text>
         하지만 위의 코드의 경우 Person 생성자가 여러개의 인스턴스를 생성할 경우
         다음과 같이 _age 변수의 상태가 변경되는 문제점이 있다.
